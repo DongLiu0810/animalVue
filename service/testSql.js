@@ -1,15 +1,13 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',
-    user: 'ld',
-    password: '123456',
-    database: 'ld',
-    insecureAuth: true
+    user: 'root',
+    port: '3306',    
+    password: 'LIUdong123',
+    database: 'anmial',
+    insecureAuth: true,
 });
 
-connection.connect();
 
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
-});
+
+export  {connection};

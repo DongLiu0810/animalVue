@@ -75,12 +75,26 @@ export default {
     methods: {
         click: function() {
             //发送get请求
-            axios
-                .get(
-                    `/api/login?username=${this.formInline.user}&password=${
-                        this.formInline.password
-                    }`
-                )
+            // axios
+            //     .get(
+            //         `/api/login?username=${this.formInline.user}&password=${
+            //             this.formInline.password
+            //         }`
+            //     )
+            //     .then(response => {
+            //         if (response.data == "登录页面") {
+            //             this.$router.push("/home");
+            //             //window.location.href = "http://localhost:8080/about";
+            //         }
+            //     })
+            //     .catch(function(error) {
+            //         console.log(error);
+            //     });
+             var data ={
+                username:this.formInline.user,
+                password:this.formInline.password
+            };
+            axios.post('/api/login',data)
                 .then(response => {
                     if (response.data == "登录页面") {
                         this.$router.push("/home");
@@ -115,6 +129,7 @@ export default {
     border-radius: 10px;
 }
 .loginBox {
+        text-align: center;
     padding-top: 50px;
 }
 </style>

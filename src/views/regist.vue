@@ -206,6 +206,9 @@ export default {
                         .then(response => {
                             if (response.data == "注册") {
                                 this.$Message.success("注册成功!");
+                                this.$router.push("/home");
+                            }else if (response.data == "用户名重复") {
+                                this.$Message.warning("用户名重复");
                             }
                         })
                         .catch(function(error) {

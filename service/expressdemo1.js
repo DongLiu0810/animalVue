@@ -1,9 +1,28 @@
-var express = require('express');
-var app = express();
 
+//import connection from '../service/testSql.js';
+var express = require('express');
+var mysql = require('mysql');
+var bodyParser = require('body-parser');
+var app = express();
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.json());
+
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    port: '3306',    
+    password: 'LIUdong123',
+    database: 'anmial',
+    insecureAuth: true,
+});
+connection.connect();
 //  主页输出 "Hello World"
+
+
 app.get('/', function (req, res) {
     console.log("主页 GET 请求");
+    
     res.send('Hello GET');
 })
 
@@ -15,16 +34,34 @@ app.post('/', function (req, res) {
     
 })
 
-//
-app.get('/login', function (req, res) {
+//登录
+app.post('/login', function (req, res) {
     console.log("/login 响应 DELETE 请求");
-    res.send('登录页面');
+    
+    connection.query(`SELECT * FROM anmial.user WHERE username =${req.body.username} and password = ${req.body.password};`, 
+    function (error, results, fields) {
+        console.log(results);
+        if (results.length == 1){
+            res.send('登录页面');
+        }else if (error) throw error;
+    });
+    
 })
 
 //
 app.post('/regist', function (req, res) {
     console.log("/regist post 请求");
-    res.send('注册');
+    connection.query(`INSERT INTO anmial.user (username, password) VALUES (${req.body.name}, ${req.body.password});`,     
+    function (error, results, fields) {
+        console.log(results);
+        if (results){
+            res.send('注册');
+        }else if (error.sqlState == '23000'){
+            res.send('用户名重复')
+        }; 
+        //throw error;
+    });
+    
 })
 
 app.get('/detail', function (req, res) {
