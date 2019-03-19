@@ -1,21 +1,18 @@
 <template>
-    <div class="personal">
-        <div>个人信息</div>
-    </div>
+  <div class="personal">
+    <div>个人信息</div>
+  </div>
 </template>
 <script>
-export default {
+  export default {
     name: "personal",
     components: {},
     data() {
-        return {};
+      return {};
     },
     computed: {},
     methods: {},
     created() {}
-};
+  };
 </script>
-<style>
-</style>
-
-
+<style></style>
